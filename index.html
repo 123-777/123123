@@ -129,6 +129,23 @@ h2::after,
 #countdown::after {
     content: none !important;
 }
+
+
+.fade-out {
+    opacity: 0;
+    transition: opacity 1s ease;
+}
+
+.fade-in {
+    opacity: 1;
+    transition: opacity 1.5s ease;
+}
+
+#countdown {
+    opacity: 1;
+}
+
+
        
    </style>
 </head>
@@ -137,33 +154,52 @@ h2::after,
     <div class="container">
     <div class="logo">
 <img src="logo.png" alt="KHALED">
-        <h2>See you soon!</h2>
+        <h2 id="subtitle">See you soon!</h2>
         <div id="countdown"></div>
     </div>
 
-    <script>
-        const targetDate = new Date("January 15, 2026 00:00:00").getTime();
+<script>
+    const targetDate = new Date("January 15, 2026 00:00:00").getTime();
+    const countdownEl = document.getElementById("countdown");
+    const subtitleEl = document.getElementById("subtitle");
 
-        const timer = setInterval(() => {
-            const now = new Date().getTime();
-            const distance = targetDate - now;
+    const timer = setInterval(() => {
+        const now = new Date().getTime();
+        const distance = targetDate - now;
 
-            if (distance < 0) {
-                clearInterval(timer);
-                document.getElementById("countdown").innerHTML = "It's time!";
-                return;
-            }
+        if (distance <= 0) {
+            clearInterval(timer);
 
-            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+            // Fade out do "See you soon!" e do countdown
+            subtitleEl.classList.add("fade-out");
+            countdownEl.classList.add("fade-out");
 
-            document.getElementById("countdown").innerHTML =
-                `${days}d ${hours}h ${minutes}m ${seconds}s`;
-        }, 1000);
-    </script>
-       
+            setTimeout(() => {
+                // Remove o subtitle
+                subtitleEl.style.display = "none";
+
+                // Texto final
+                countdownEl.innerHTML =
+                    "Thank you for waiting. Now.... Why dont you wait for the lazy ass owner wake up and release ts.";
+
+                // Fade in da mensagem final
+                countdownEl.classList.remove("fade-out");
+                countdownEl.classList.add("fade-in");
+            }, 1000);
+
+            return;
+        }
+
+        const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+        countdownEl.innerHTML =
+            `${days}d ${hours}h ${minutes}m ${seconds}s`;
+    }, 1000);
+</script>
+
 </body>
 </html>
 
