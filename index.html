@@ -57,18 +57,27 @@
   </div>
 </div>
    <style>     
-        
-        body {
+    
+    body {
     margin: 0;
     padding: 0;
-    background-color: #0e0e12;
-    color: #fff;
     min-height: 100vh;
+
+    background-image: url("background.jpg");
+    background-size: cover;       /* cobre a tela inteira */
+    background-position: center;  /* centraliza */
+    background-repeat: no-repeat; /* não repete */
+    background-attachment: fixed; /* efeito suave ao rolar */
+
+    color: #fff;
     font-family: 'Inter', sans-serif;
+
     display: flex;
     flex-direction: column;
     align-items: center;
     text-align: center;
+}
+
 
         }
 
@@ -151,13 +160,15 @@ h2::after,
 </head>
 <body>
 
-    <div class="container">
+<div class="page-enter">
+ <div class="container">
     <div class="logo">
 <img src="logo.png" alt="KHALED">
         <h2 id="subtitle">See you soon!</h2>
         <div id="countdown"></div>
     </div>
-
+</div>  
+    
 <script>
     const targetDate = new Date("January 15, 2026 00:00:00").getTime();
     const countdownEl = document.getElementById("countdown");
